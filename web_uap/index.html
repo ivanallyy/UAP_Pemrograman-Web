@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pembayaran Barang</title>
+  </head>
+  <body>
+    <!-- Tabel untuk menampilkan data barang -->
+    <table border="1">
+      <tr>
+        <th>Kode</th>
+        <th>Nama Barang</th>
+        <th>Harga</th>
+      </tr>
+      <script>
+        // Array untuk menyimpan data barang
+        var dataBarang = [
+          { kode: "001", nama: "Barang A", harga: 10000 },
+          { kode: "002", nama: "Barang B", harga: 20000 },
+          { kode: "003", nama: "Barang C", harga: 30000 },
+        ];
+
+        // Menampilkan data barang pada tabel
+        for (var i = 0; i < dataBarang.length; i++) {
+          document.write("<tr>");
+          document.write("<td>" + dataBarang[i].kode + "</td>");
+          document.write("<td>" + dataBarang[i].nama + "</td>");
+          document.write("<td>Rp " + dataBarang[i].harga + "</td>");
+          document.write("</tr>");
+        }
+      </script>
+    </table>
+
+    <script>
+      // Fungsi untuk menampilkan data barang dan memproses pembayaran
+      function beliBarang() {
+        // Meminta input kode barang yang ingin dibeli
+        var kodeBarang = prompt(
+          "Masukkan kode barang yang ingin dibeli (lihat tabel di atas):"
+        );
+
+        // Mencari data barang berdasarkan kode
+        var selectedBarang = dataBarang.find(function (barang) {
+          return barang.kode === kodeBarang;
+        });
+
+        if (selectedBarang) {
+          // Meminta input nominal uang pembayaran
+          var uangBayar = parseFloat(
+            prompt(
+              "Total pembayaran untuk " +
+                selectedBarang.nama +
+                " adalah Rp " +
+                selectedBarang.harga +
+                "\nMasukkan nominal uang:"
+            )
+          );
+
+          if (isNaN(uangBayar) || uangBayar <= 0) {
+            alert(
+              "Input uang tidak valid. Silakan masukkan nominal uang yang benar."
+            );
+            return;
+          }
+
+          // Memproses pembayaran
+          if (uangBayar >= selectedBarang.harga) {
+            var kembalian = uangBayar - selectedBarang.harga;
+            alert("Pembayaran berhasil!\nKembalian Anda: Rp " + kembalian);
+          } else {
+            alert(
+              "Uang tidak cukup. Silakan masukkan nominal uang yang mencukupi."
+            );
+          }
+        } else {
+          alert(
+            "Kode barang tidak valid. Silakan masukkan kode barang yang benar."
+          );
+        }
+      }
+    </script>
+
+    <!-- Button untuk memulai proses pembelian -->
+    <button onclick="beliBarang()">Beli Barang</button>
+  </body>
+</html>
